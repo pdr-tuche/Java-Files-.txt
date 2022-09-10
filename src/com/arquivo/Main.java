@@ -5,17 +5,42 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Created by @pdr0nvs on 09 setembro, 2022.
+ * Created by Pedro Neves on 09 setembro, 2022.
  * Follow @pdr0nvs on GitHub.
  */
 public class Main {
    public static void main(String[] args) throws IOException {
+      int opcao;
+      String flag;
+      Scanner input = new Scanner(System.in);
+
       File arquivo = new File(".\\nomes.txt");
-      //gravar(arquivo);
-      //ler(arquivo);
-      //apagarTudo(arquivo);
-      apagarEspecifico(arquivo);
+
+      do {
+         System.out.println("1- Gravar nome, " +
+                            "2- Ler arquivo, " +
+                            "3- Apagar todo o arquivo, " +
+                            "4- apagar nome especifico");
+         opcao = input.nextInt();
+         switch (opcao) {
+            case 1:
+               gravar(arquivo);
+               break;
+            case 2:
+               ler(arquivo);
+               break;
+            case 3:
+               apagarTudo(arquivo);
+               break;
+            case 4:
+               gravar(apagarEspecifico(arquivo), arquivo);
+               break;
+         }
+         System.out.println("Deseja fazer mais manipulações ? [S]/[N]");
+         flag = input.nextLine();
+      } while (flag.equalsIgnoreCase("S"));
    }
+
 
    //leitura ok
    static void ler(File arq) throws IOException {
@@ -52,7 +77,7 @@ public class Main {
       gravarArquivo.close();
    }
 
-   static void apagarEspecifico(File arq) throws IOException {
+   static ArrayList<String> apagarEspecifico(File arq) throws IOException {
       ArrayList<String> listaDeNomes = new ArrayList<>();
 
       Scanner input = new Scanner(System.in);
@@ -70,10 +95,11 @@ public class Main {
          linha = leitorLinha.readLine();
       }
 
+      apagarTudo(arq);
       leitorLinha.close();
       arquivoLeitura.close();
-      apagarTudo(arq);
-
+      return listaDeNomes;
+/*
       FileWriter gravarArquivo = new FileWriter(arq,true);
       BufferedWriter escrever = new BufferedWriter(gravarArquivo);
 
@@ -81,9 +107,18 @@ public class Main {
          escrever.write(elem);
          escrever.newLine();
          System.out.println(elem);
-      }
-      gravarArquivo.close();
 
+ */
+      }
+      static void gravar(ArrayList<String> arrString, File arq) throws IOException {
+         FileWriter gravarArquivo = new FileWriter(arq,true);
+         BufferedWriter escrever = new BufferedWriter(gravarArquivo);
+         for (String nome : arrString) {
+            escrever.write(nome);
+            escrever.newLine();
+         }
+         escrever.close();
+         gravarArquivo.close();
    }
 
 } // main
