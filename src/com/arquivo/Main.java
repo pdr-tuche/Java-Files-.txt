@@ -36,8 +36,13 @@ public class Main {
                gravar(apagarEspecifico(arquivo), arquivo);
                break;
          }
-         System.out.println("Deseja fazer mais manipulações ? [S]/[N]");
+         
          flag = input.nextLine();
+         if (flag != " ") {
+            System.out.println("Deseja fazer mais manipulações ? [S]/[N]");
+            flag = input.nextLine();
+         }
+         
       } while (flag.equalsIgnoreCase("S"));
    }
 
