@@ -37,11 +37,11 @@ public class Main {
                break;
          }
          
-         flag = input.nextLine();
+         flag = input.nextLine(); //essa parte do if ta complicadinha
          if (flag != " ") {
             System.out.println("Deseja fazer mais manipulações ? [S]/[N]");
             flag = input.nextLine();
-         }
+         } // sem o if nao fica interativo com o DoWhile
          
       } while (flag.equalsIgnoreCase("S"));
    }
